@@ -1,0 +1,32 @@
+:root {
+  --vp-c-brand-1: #00c49a;
+  --vp-c-brand-2: #00d4aa;
+  --vp-c-brand-3: #00e8bc;
+  --vp-c-brand-soft: rgba(0, 196, 154, 0.12);
+
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-text: #ffffff;
+  --vp-button-brand-bg: var(--vp-c-brand-1);
+  --vp-button-brand-hover-border: transparent;
+  --vp-button-brand-hover-text: #ffffff;
+  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+  --vp-button-brand-active-border: transparent;
+  --vp-button-brand-active-bg: var(--vp-c-brand-3);
+}
+
+.dark {
+  --vp-c-brand-1: #00d4aa;
+  --vp-c-brand-2: #00c49a;
+  --vp-c-brand-3: #00b48a;
+  --vp-c-brand-soft: rgba(0, 212, 170, 0.14);
+}
+
+/* Tighten the home hero on large screens */
+.VPHero .tagline {
+  max-width: 520px;
+}
+
+/* Slightly more padding on feature cards */
+.VPFeature {
+  padding: 20px 24px !important;
+}
