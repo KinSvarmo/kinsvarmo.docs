@@ -48,14 +48,14 @@ Verifies that an execution module is authorized to decrypt and run an agent. Int
 ## Addresses
 
 ::: warning Pending deployment
-Contracts are not yet deployed. Addresses will be added here after final deployment to 0G Galileo Testnet before submission.
+Contracts are pending deployment. Addresses will be added here after final deployment to 0G Galileo Testnet before submission.
 :::
 
 | Contract | Address |
 |---|---|
-| `INFTRegistry` | — |
-| `AnalysisEscrow` | — |
-| `UsageAuthorizationManager` | — |
+| `INFTRegistry` | Pending |
+| `AnalysisEscrow` | Pending |
+| `UsageAuthorizationManager` | Pending |
 
 ABIs and TypeScript types are in `packages/contracts`. Import them directly:
 

@@ -2,23 +2,23 @@
 
 KinSvarmo is a marketplace where experts publish private analysis agents and users pay to run them on their own data.
 
-The core idea: someone has a valuable analysis script — a pricing model, a screening pipeline, a diagnostic tool. They want to earn from it without giving it away. KinSvarmo lets them publish the encrypted script as an on-chain iNFT. Users pay per run and receive a structured result with full provenance. The script itself is never exposed.
+The core idea is simple: an expert may have a pricing model, screening pipeline, diagnostic tool, or other script that is valuable because of the method inside it. KinSvarmo packages that script as an encrypted on-chain asset. Users submit data, pay for one run, and receive a structured result with provenance. The script remains private throughout the flow.
 
-## The three parts
+## How the pieces fit
 
-**Agent publishing.** A creator uploads an analysis script, sets a price per run, and mints an iNFT on 0G Chain. The script is encrypted client-side before upload — the raw logic never leaves the creator's machine in plaintext.
+**Publishing.** A creator uploads an analysis script, sets a price per run, and mints an iNFT on 0G Chain. The script is encrypted in the browser before upload, then stored as a blob on 0G Storage.
 
-**Job execution.** When a user submits a dataset, a four-module agent swarm handles the job: planning, analysis, review, and reporting. The modules communicate over Gensyn AXL, and the full message log is stored with each job.
+**Execution.** When a user submits a dataset, four modules handle the job: planning, analysis, review, and reporting. The modules communicate over Gensyn AXL, and the API keeps the message log with the job record.
 
-**Result delivery.** The output is a structured report with findings, a confidence score, and a provenance reference anchored on 0G Storage. The user can verify what ran and when.
+**Delivery.** The output is a structured report with findings, confidence, timestamps, and a provenance reference. The user can inspect the trace after the job completes.
 
-## What it is not
+## Product boundaries
 
-It is not a SaaS subscription. There is no platform account to manage — just a wallet.
+KinSvarmo is built around wallet-based access and pay-per-run jobs. The current demo keeps development mode lightweight: contract calls can be skipped, AXL can run in memory, and missing infrastructure falls back to mock clients.
 
-It is not a model marketplace. Agents are arbitrary analysis scripts (Python, R, JS, Jupyter, Bash), not foundation models.
+Agents are analysis programs rather than hosted foundation models. They can be written in Python, R, JavaScript, Jupyter, or Bash, and the Reporter turns their output into a consistent result shape.
 
-It is not limited to one domain. The same infrastructure handles phytochemistry screening, financial analysis, or any other structured input-output workflow.
+The first seeded workflow focuses on phytochemistry screening, but the execution contract is domain-neutral: dataset in, structured report out.
 
 ## Sponsor integrations
 
@@ -29,5 +29,5 @@ It is not limited to one domain. The same infrastructure handles phytochemistry 
 | **KeeperHub** | Workflow orchestration, retry logic, and execution guarantees |
 
 ::: info Built for the hackathon
-KinSvarmo was built for the 0G × Gensyn × KeeperHub hackathon. All three sponsor technologies are required for a complete run — 0G stores the data, AXL routes the messages, and KeeperHub ensures the workflow completes.
+KinSvarmo was built for the 0G x Gensyn x KeeperHub hackathon. A complete production run uses 0G for storage and chain state, AXL for module messaging, and KeeperHub for workflow guarantees.
 :::

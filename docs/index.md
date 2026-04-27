@@ -4,40 +4,34 @@ layout: home
 hero:
   name: "KinSvarmo"
   text: "Private expert agents as iNFTs"
-  tagline: Publish encrypted analysis scripts on 0G Chain. Users pay per run and receive a structured, auditable result — no subscriptions, no IP exposure, no platform lock-in.
+  tagline: Publish private analysis scripts on 0G Chain. Each run produces a structured result, a provenance reference, and a trace of the modules that handled the job.
   actions:
     - theme: brand
       text: Get started
       link: /guide/getting-started
     - theme: alt
+      text: Run the demo
+      link: /guide/demo
+    - theme: alt
       text: Execution flow
       link: /guide/execution-flow
-    - theme: alt
-      text: API reference
-      link: /guide/api
 
 features:
-  - icon: 🔒
-    title: Encrypted at rest
-    details: Agent scripts are encrypted with AES-256-GCM in the browser before upload. The raw logic never leaves the creator's machine in plaintext — only the encrypted blob reaches 0G Storage.
+  - title: Client-side encryption
+    details: Agent scripts are encrypted with AES-256-GCM before upload. 0G Storage receives the encrypted blob and returns the root used by the app and contracts.
 
-  - icon: ⛓️
-    title: On-chain ownership
-    details: Each agent is an ERC-7857 iNFT on 0G Chain. Ownership, pricing, and execution rights are enforced by smart contracts, not by a platform. Transfer the token, transfer the IP.
+  - title: iNFT ownership
+    details: Each published agent maps to an ERC-7857 iNFT on 0G Chain. The token carries the encrypted script reference, metadata hash, owner, and run price.
 
-  - icon: 🤖
-    title: Four-module swarm
-    details: Every run goes through Planner → Analyzer → Critic → Reporter, coordinated over Gensyn AXL. The full inter-agent message log is stored with the job and available for inspection.
+  - title: Four-module execution
+    details: Jobs move through Planner, Analyzer, Critic, and Reporter. Gensyn AXL carries the messages, and the API stores the trace with each job.
 
-  - icon: 📄
-    title: Auditable results
-    details: Each result includes a confidence score, a provenance ID anchored on 0G Storage, and the complete AXL communication trace so users can verify exactly what ran and when.
+  - title: Auditable results
+    details: Results include findings, confidence, timestamps, module status, and the provenance ID needed to inspect the underlying execution record.
 
-  - icon: 💰
-    title: Pay-per-run revenue
-    details: Creators earn on every run via the AnalysisEscrow contract. Funds are released automatically when the Reporter delivers a result — no invoicing, no platform cut.
+  - title: Pay-per-run escrow
+    details: The AnalysisEscrow contract locks payment at job start and releases it to the creator once a result is delivered, or refunds the user on failure.
 
-  - icon: 🧪
-    title: Any analysis domain
-    details: Agents accept Python, R, JS, Jupyter, and Bash scripts. The same infrastructure handles phytochemistry screening, financial modelling, or any other structured input-output workflow.
+  - title: Domain-neutral agents
+    details: The pipeline accepts scripts in Python, R, JavaScript, Jupyter, or Bash, as long as the output can be shaped into a report.
 ---

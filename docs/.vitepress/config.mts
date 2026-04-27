@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress";
 
 export default defineConfig({
   title: "KinSvarmo",
-  description: "Private expert agents as iNFTs. Pay per run, get auditable results.",
+  description: "Private expert agents published as encrypted iNFTs.",
 
   lastUpdated: true,
 
@@ -16,6 +16,7 @@ export default defineConfig({
 
     nav: [
       { text: "Guide", link: "/guide/what-is-kinsvarmo" },
+      { text: "Demo", link: "/guide/demo" },
       { text: "API", link: "/guide/api" },
       { text: "Contracts", link: "/guide/contracts" },
       { text: "GitHub", link: "https://github.com/AriiBen/kinsvarmo" },
@@ -28,6 +29,7 @@ export default defineConfig({
         items: [
           { text: "What is KinSvarmo?", link: "/guide/what-is-kinsvarmo" },
           { text: "Getting started", link: "/guide/getting-started" },
+          { text: "Run the demo", link: "/guide/demo" },
         ],
       },
       {
@@ -55,7 +57,7 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern: "https://github.com/AriiBen/kinsvarmo/edit/main/apps/docs/docs/:path",
+      pattern: "https://github.com/AriiBen/kinsvarmo/edit/main/docs/:path",
       text: "Edit this page on GitHub",
     },
 
@@ -71,7 +73,7 @@ export default defineConfig({
     ],
 
     footer: {
-      message: "Built for the 0G × Gensyn × KeeperHub hackathon.",
+      message: "Built for the 0G x Gensyn x KeeperHub hackathon.",
       copyright: "MIT License",
     },
 

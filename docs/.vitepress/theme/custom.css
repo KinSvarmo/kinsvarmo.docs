@@ -1,32 +1,276 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+
 :root {
-  --vp-c-brand-1: #00c49a;
-  --vp-c-brand-2: #00d4aa;
-  --vp-c-brand-3: #00e8bc;
-  --vp-c-brand-soft: rgba(0, 196, 154, 0.12);
+  --bg: #070b10;
+  --bg-raised: #0d1219;
+  --bg-overlay: #111820;
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-hov: rgba(255, 255, 255, 0.07);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hov: rgba(255, 255, 255, 0.15);
+  --teal: #00d4aa;
+  --teal-dim: rgba(0, 212, 170, 0.15);
+  --teal-glow: rgba(0, 212, 170, 0.35);
+  --violet: #7c3aed;
+  --blue: #3b82f6;
+  --blue-dim: rgba(59, 130, 246, 0.15);
+  --amber: #f59e0b;
+  --text: #f0f6fc;
+  --text-2: #8b949e;
+  --text-3: #484f58;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --shadow-card: 0 0 0 1px var(--border), 0 4px 24px rgba(0, 0, 0, 0.4);
+
+  --vp-font-family-base: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --vp-font-family-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --vp-c-bg: var(--bg);
+  --vp-c-bg-alt: var(--bg-raised);
+  --vp-c-bg-elv: var(--bg-overlay);
+  --vp-c-bg-soft: var(--surface);
+  --vp-c-border: var(--border);
+  --vp-c-divider: var(--border);
+  --vp-c-gutter: var(--border);
+  --vp-c-text-1: var(--text);
+  --vp-c-text-2: var(--text-2);
+  --vp-c-text-3: var(--text-3);
+  --vp-c-brand-1: var(--teal);
+  --vp-c-brand-2: #00e6b8;
+  --vp-c-brand-3: #00b48a;
+  --vp-c-brand-soft: var(--teal-dim);
+  --vp-code-block-bg: #05080c;
+  --vp-code-bg: rgba(255, 255, 255, 0.06);
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, var(--teal), #93c5fd 52%, #a78bfa);
 
   --vp-button-brand-border: transparent;
-  --vp-button-brand-text: #ffffff;
-  --vp-button-brand-bg: var(--vp-c-brand-1);
+  --vp-button-brand-text: #041210;
+  --vp-button-brand-bg: var(--teal);
   --vp-button-brand-hover-border: transparent;
-  --vp-button-brand-hover-text: #ffffff;
-  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+  --vp-button-brand-hover-text: #041210;
+  --vp-button-brand-hover-bg: #00e6b8;
   --vp-button-brand-active-border: transparent;
-  --vp-button-brand-active-bg: var(--vp-c-brand-3);
+  --vp-button-brand-active-bg: #00b48a;
+  --vp-button-alt-border: var(--border);
+  --vp-button-alt-text: var(--text);
+  --vp-button-alt-bg: var(--surface);
+  --vp-button-alt-hover-border: var(--border-hov);
+  --vp-button-alt-hover-text: var(--text);
+  --vp-button-alt-hover-bg: var(--surface-hov);
+  --vp-button-alt-active-border: var(--border-hov);
+  --vp-button-alt-active-bg: var(--bg-overlay);
+  color-scheme: dark;
 }
 
-.dark {
-  --vp-c-brand-1: #00d4aa;
-  --vp-c-brand-2: #00c49a;
-  --vp-c-brand-3: #00b48a;
-  --vp-c-brand-soft: rgba(0, 212, 170, 0.14);
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-/* Tighten the home hero on large screens */
-.VPHero .tagline {
-  max-width: 520px;
+html {
+  scroll-behavior: smooth;
 }
 
-/* Slightly more padding on feature cards */
+body {
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4,
+.VPHomeHero .name,
+.VPHomeHero .text,
+.VPFeature .title {
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: 0;
+}
+
+code, pre {
+  font-family: "JetBrains Mono", monospace;
+}
+
+.Layout {
+  position: relative;
+  overflow: hidden;
+}
+
+.Layout::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0, 212, 170, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 30%, rgba(124, 58, 237, 0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 35% at 20% 60%, rgba(59, 130, 246, 0.08) 0%, transparent 60%),
+    var(--bg);
+  pointer-events: none;
+}
+
+.Layout::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0.6) 60%, transparent);
+  pointer-events: none;
+}
+
+.VPNavBar .content-body {
+  background: rgba(7, 11, 16, 0.72);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+}
+
+.VPHomeHero {
+  padding-top: 84px;
+}
+
+.VPHomeHero .main {
+  max-width: 760px;
+}
+
+.VPHomeHero .tagline {
+  max-width: 650px;
+  color: var(--text-2);
+  font-size: 20px;
+  line-height: 1.65;
+}
+
+.VPButton {
+  border-radius: var(--radius) !important;
+  font-weight: 700;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.VPButton.brand:hover {
+  box-shadow: 0 0 20px var(--teal-glow);
+  transform: translateY(-1px);
+}
+
+.VPButton.alt:hover {
+  transform: translateY(-1px);
+}
+
 .VPFeature {
-  padding: 20px 24px !important;
+  min-height: 190px;
+  padding: 24px !important;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s, transform 0.2s;
+}
+
+.VPFeature:hover {
+  background: var(--surface-hov);
+  border-color: var(--border-hov);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
+}
+
+.VPFeature .title {
+  color: var(--text);
+  font-size: 18px;
+}
+
+.VPFeature .details {
+  color: var(--text-2);
+  line-height: 1.65;
+}
+
+.VPDoc .content,
+.VPDoc.has-aside .content-container {
+  max-width: 860px;
+}
+
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3 {
+  color: var(--text);
+}
+
+.vp-doc p,
+.vp-doc li {
+  line-height: 1.75;
+}
+
+.vp-doc a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.vp-doc table {
+  display: table;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.vp-doc th,
+.vp-doc td {
+  border: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.vp-doc tr:last-child td {
+  border-bottom: 0;
+}
+
+.vp-doc div[class*="language-"] {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
+.custom-block {
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.custom-block.info {
+  background: var(--blue-dim);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.custom-block.tip {
+  background: var(--teal-dim);
+  border-color: rgba(0, 212, 170, 0.3);
+}
+
+.custom-block.warning {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.VPSidebar {
+  background: rgba(7, 11, 16, 0.86) !important;
+  border-right: 1px solid var(--border);
+}
+
+.VPSidebarItem .link:hover {
+  color: var(--text) !important;
+  background: var(--surface);
+}
+
+.VPFooter {
+  border-top: 1px solid var(--border);
+  background: rgba(7, 11, 16, 0.76);
+}
+
+@media (max-width: 768px) {
+  .VPHomeHero {
+    padding-top: 56px;
+  }
+
+  .VPHomeHero .tagline {
+    font-size: 17px;
+  }
 }
