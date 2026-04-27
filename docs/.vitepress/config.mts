@@ -19,7 +19,7 @@ export default defineConfig({
       { text: "Demo", link: "/guide/demo" },
       { text: "API", link: "/guide/api" },
       { text: "Contracts", link: "/guide/contracts" },
-      { text: "GitHub", link: "https://github.com/AriiBen/kinsvarmo" },
+      { text: "GitHub", link: "https://github.com/KinSvarmo" },
     ],
 
     sidebar: [
@@ -57,7 +57,7 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern: "https://github.com/AriiBen/kinsvarmo/edit/main/docs/:path",
+      pattern: "https://github.com/KinSvarmoedit/main/docs/:path",
       text: "Edit this page on GitHub",
     },
 
@@ -69,7 +69,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: "github", link: "https://github.com/AriiBen/kinsvarmo" },
+      { icon: "github", link: "https://github.com/KinSvarmo" },
     ],
 
     footer: {

@@ -14,7 +14,7 @@ The API can run with the in-memory AXL client when no AXL node URLs are configur
 ## Install and run
 
 ```bash
-git clone https://github.com/AriiBen/kinsvarmo
+git clone https://github.com/KinSvarmo
 cd kinsvarmo
 pnpm install
 pnpm dev
