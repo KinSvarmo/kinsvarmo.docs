@@ -56,7 +56,7 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern: "https://github.com/KinSvarmo/edit/main/docs/:path",
+      pattern: "https://github.com/KinSvarmo/kinsvarmo.docs/edit/main/docs/:path",
       text: "Edit this page on GitHub",
     },
 
