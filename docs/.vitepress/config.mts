@@ -73,7 +73,7 @@ export default defineConfig({
 
     footer: {
       message: "Built for the 0G x Gensyn x KeeperHub hackathon.",
-      copyright: "MIT License",
+      copyright: "KinSvarmo documentation",
     },
 
     search: {
