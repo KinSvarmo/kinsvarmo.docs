@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "KinSvarmo"
   text: "Private expert agents as iNFTs"
-  tagline: Publish private analysis scripts on 0G Chain. Each run produces a structured result, a provenance reference, and a trace of the modules that handled the job.
+  tagline: Demo a scientific agent marketplace on 0G and Gensyn AXL. The current app runs a seeded phytochemistry workflow and records structured results, provenance IDs, and module traces.
   actions:
     - theme: brand
       text: Get started
@@ -21,7 +21,7 @@ features:
     details: Agent scripts are encrypted with AES-256-GCM before upload. 0G Storage receives the encrypted blob and returns the root used by the app and contracts.
 
   - title: iNFT ownership
-    details: Each published agent maps to an ERC-7857 iNFT on 0G Chain. The token carries the encrypted script reference, metadata hash, owner, and run price.
+    details: The frontend includes ABI subsets and placeholder addresses for ERC-7857-style iNFT ownership. Actual contract deployment is pending.
 
   - title: Four-module execution
     details: Jobs move through Planner, Analyzer, Critic, and Reporter. Gensyn AXL carries the messages, and the API stores the trace with each job.
@@ -30,8 +30,8 @@ features:
     details: Results include findings, confidence, timestamps, module status, and the provenance ID needed to inspect the underlying execution record.
 
   - title: Pay-per-run escrow
-    details: The AnalysisEscrow contract locks payment at job start and releases it to the creator once a result is delivered, or refunds the user on failure.
+    details: The run wizard computes costs and prepares the escrow call, but on-chain settlement is disabled until AnalysisEscrow is deployed.
 
   - title: Domain-neutral agents
-    details: The pipeline accepts scripts in Python, R, JavaScript, Jupyter, or Bash, as long as the output can be shaped into a report.
+    details: The creator UI accepts multiple script types, while the current executable pipeline uses the seeded TypeScript phytochemistry demo agent.
 ---

@@ -10,21 +10,43 @@ The Fastify API runs on port `4000` in development.
 
 ### `GET /health`
 
-Returns the AXL node connection status.
+Returns service status and the AXL client health object.
 
 ```json
-{ "status": "ok", "axl": "connected" }
+{
+  "ok": true,
+  "service": "kingsvarmo-api",
+  "axl": {
+    "configured": ["api", "planner", "analyzer", "critic", "reporter"],
+    "nodes": {
+      "api": true,
+      "planner": true,
+      "analyzer": true,
+      "critic": true,
+      "reporter": true
+    },
+    "healthy": true
+  }
+}
 ```
 
 ## Agents
 
 ### `GET /api/agents`
 
-Returns all published agents as an array.
+Returns all seeded agents.
+
+```json
+{ "agents": [] }
+```
 
 ### `GET /api/agents/:id`
 
 Returns a single agent by ID or slug. Returns `404` if not found.
+
+```json
+{ "agent": {} }
+```
 
 ## Jobs
 
@@ -38,18 +60,22 @@ Creates an analysis job. Returns the new job record including its generated ID.
 {
   "agentId": "agent_alkaloid_predictor_v2",
   "userWallet": "0xabc...",
-  "datasetReference": "0g://bafy...",
-  "priceIn0G": "0.25"
+  "filename": "alkaloid-sample.csv",
+  "uploadReference": "0g://dataset/0x...",
+  "inputMetadata": {
+    "source": "web-run-page",
+    "totalOG": 0.282
+  }
 }
 ```
 
-**Response:** the job object with `status: "created"`.
+**Response:** `{ "job": { ... } }` with `status: "created"`.
 
 ---
 
 ### `POST /api/jobs/:id/start`
 
-Starts the AXL workflow for an existing job. Sends `job.created` to the Planner and begins consuming inbound messages in the background. Returns `404` if the job is not found, `409` if already started.
+Starts the AXL workflow for an existing job. Sends `job.created` to the Planner and begins consuming inbound messages in the background. Returns `404` if the job is not found.
 
 ---
 
@@ -59,21 +85,24 @@ Returns the current job state including per-module status and timestamps.
 
 ```json
 {
-  "id": "job_01hwx...",
-  "agentId": "agent_alkaloid_predictor_v2",
-  "status": "analyzing",
-  "modules": {
-    "planner":  { "status": "completed", "completedAt": "..." },
-    "analyzer": { "status": "running" },
-    "critic":   { "status": "pending" },
-    "reporter": { "status": "pending" }
-  },
-  "createdAt": "...",
-  "updatedAt": "..."
+  "job": {
+    "id": "job_1710000000000_1",
+    "agentId": "agent_alkaloid_predictor_v2",
+    "userWallet": "0xabc...",
+    "filename": "alkaloid-sample.csv",
+    "status": "analyzing",
+    "paymentStatus": "authorized",
+    "plannerStatus": "completed",
+    "analyzerStatus": "running",
+    "criticStatus": "pending",
+    "reporterStatus": "pending",
+    "createdAt": "...",
+    "updatedAt": "..."
+  }
 }
 ```
 
-**Module status values:** `pending` · `running` · `completed` · `failed`
+**Module status values:** `pending`, `running`, `completed`, `failed`
 
 ---
 
@@ -82,15 +111,17 @@ Returns the current job state including per-module status and timestamps.
 Returns the full AXL message log for a job, ordered by timestamp.
 
 ```json
-[
-  {
-    "sender": "planner",
-    "receiver": "analyzer",
-    "type": "plan.generated",
-    "payload": { "samplesDetected": 24, "estimatedDuration": 3 },
-    "timestamp": "2025-04-20T14:03:11.421Z"
-  }
-]
+{
+  "messages": [
+    {
+      "sender": "planner",
+      "receiver": "analyzer",
+      "type": "plan.generated",
+      "payload": { "sampleCount": 4 },
+      "timestamp": "2026-04-24T14:03:11.421Z"
+    }
+  ]
+}
 ```
 
 ---
@@ -101,12 +132,15 @@ Returns the final analysis result. Only available once `status` is `completed`.
 
 ```json
 {
-  "summary": "24 alkaloid compounds detected across 3 sample groups...",
-  "confidence": 0.82,
-  "findings": [
-    { "compound": "berberine", "concentration": 0.14, "flag": null }
-  ],
-  "provenanceId": "0g://bafy..."
+  "result": {
+    "summary": "Demo sample shows modest alkaloid-like screening signals.",
+    "confidence": 0.76,
+    "keyFindings": [
+      "3 candidate alkaloid-like signals detected",
+      "Top families: indole-like, quinoline-like, isoquinoline-like"
+    ],
+    "provenanceId": "prov_job_1710000000000_1"
+  }
 }
 ```
 

@@ -1,6 +1,6 @@
 # Smart contracts
 
-Three contracts govern the on-chain lifecycle on **0G Galileo Testnet** (chainId `16602`).
+The frontend is prepared for three contracts on **0G Galileo Testnet** (chainId `16602`), but deployment is still pending. Contract calls are intentionally commented out in the main run and creator flows until real addresses replace the placeholders.
 
 ## INFTRegistry
 
@@ -10,7 +10,7 @@ Mints agents as ERC-7857 intelligence NFTs. Stores the encrypted script URI and 
 
 ```solidity
 /// Mint a new agent iNFT. Returns the token ID.
-function mint(bytes32 metadataHash, string calldata encryptedURI)
+function mint(address to, string calldata encryptedURI, bytes32 metadataHash)
   external returns (uint256 tokenId)
 
 /// Read the encrypted script URI for a token.
@@ -32,8 +32,7 @@ Holds the user's payment when a job starts. Releases it to the agent creator whe
 /// Lock funds for a job. Called by the frontend on job start.
 function createJob(
   uint256 agentTokenId,
-  string calldata datasetReference,
-  uint256 priceIn0G
+  string calldata datasetReference
 ) external payable
 
 /// Read the current state of an escrowed job.
@@ -57,8 +56,8 @@ Contracts are pending deployment. Addresses will be added here after final deplo
 | `AnalysisEscrow` | Pending |
 | `UsageAuthorizationManager` | Pending |
 
-ABIs and TypeScript types are in `packages/contracts`. Import them directly:
+The ABI subsets used by the UI are currently in `apps/web/lib/contracts.ts`. Placeholder deployment metadata types live in `packages/contracts`.
 
 ```ts
-import { INFTRegistry__factory } from "@kinsvarmo/contracts";
+import { INFTRegistryABI, CONTRACT_ADDRESSES } from "@/lib/contracts";
 ```

@@ -1,6 +1,6 @@
 # Run the demo
 
-The local demo runs the same module path used by the app: Planner, Analyzer, Critic, and Reporter. It uses an in-memory AXL network, so you can inspect the flow without a wallet or external service keys.
+The local demo runs the same module path used by the API workflow: Planner, Analyzer, Critic, and Reporter. It uses local AXL node processes plus deterministic agent workers, so you can inspect the flow without contract deployment.
 
 ## Start the app
 
@@ -48,4 +48,4 @@ Look for three things in the final output:
 - `confidence` should be a number between `0` and `1`
 - `provenanceId` should be present in the result
 
-If a module fails, check that all three demo processes are still running and that the API is available on port `4000`.
+If a module fails, check that all three demo processes are still running. The CLI demo uses the local AXL workers directly; the web job status page also needs the API available on port `4000`.

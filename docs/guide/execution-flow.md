@@ -1,10 +1,10 @@
 # Execution flow
 
-Every analysis job follows the same pipeline, regardless of the agent or domain.
+The implemented demo path follows one pipeline for the seeded phytochemistry agent.
 
 ## Steps
 
-1. The user uploads a dataset in the run wizard. The file is encrypted client-side with AES-256-GCM and uploaded to 0G Storage.
+1. The user uploads a dataset in the run wizard. The current run page records a dataset reference for the API job; the 0G upload helper is implemented separately and used by the Creator Studio upload flow.
 2. The frontend calls `POST /api/jobs`. The API creates a job record with status `created`.
 3. The frontend calls `POST /api/jobs/:id/start`. The API sends a `job.created` message over AXL to the Planner module.
 4. The four modules execute in sequence, each sending a typed message when done:
@@ -21,7 +21,7 @@ critic.reviewed    -> [Reporter] -> report.generated
 
 ## Job states
 
-Jobs transition through six states driven by inbound AXL messages:
+Jobs can use these status values: `created`, `authorized`, `planning`, `analyzing`, `reviewing`, `reporting`, `completed`, and `failed`. The active AXL workflow moves through this path:
 
 ```text
 created -> planning -> analyzing -> reviewing -> reporting -> completed
@@ -29,7 +29,7 @@ created -> planning -> analyzing -> reviewing -> reporting -> completed
 ```
 
 ::: warning Failure condition
-Any state can transition to `failed` if the Critic assigns a confidence score below the agent's threshold, or if a module times out.
+The API marks a job as `failed` when a module sends `job.failed` or when the workflow consumer times out waiting for the expected report message.
 :::
 
 ## The four modules
@@ -40,20 +40,20 @@ Validates the request and constructs an execution plan. It checks dataset compat
 
 ### Analyzer
 
-Executes the analysis defined by the agent. In the current demo this is a deterministic phytochemistry pipeline; in production the agent script is decrypted inside a TEE and called here.
+Executes the deterministic phytochemistry pipeline in `packages/agents/src/phytochemistry/demo-analysis.ts`. TEE-based execution of uploaded scripts is planned but not wired into the current API workflow.
 
 ### Critic
 
-Reviews the Analyzer's output. It assigns a confidence score between `0` and `1`, flags warnings, and either approves the result by sending `critic.reviewed` or transitions the job to `failed`.
+Reviews the Analyzer's output. It assigns a confidence score between `0` and `1`, adds warnings, and sends `critic.reviewed` in the deterministic demo path.
 
 ### Reporter
 
-Packages the approved findings into a structured report: summary, key observations, confidence score, and a provenance reference anchored on 0G Storage.
+Packages the approved findings into a structured report: summary, key observations, confidence score, and a generated `prov_<jobId>` provenance reference.
 
 ## AXL message log
 
 Every message exchanged between modules is recorded on the job. The `/jobs/[jobId]` page shows sender, receiver, message type, payload, and timestamp for the run.
 
 ::: info Audit trail
-The message log is the same data that gets anchored via `provenanceId` in the final result. Users can verify a run by inspecting the 0G Storage root.
+The final result includes a `provenanceId`. In the current demo it is generated from the job ID; anchoring the full message log to 0G Storage is a planned production step.
 :::

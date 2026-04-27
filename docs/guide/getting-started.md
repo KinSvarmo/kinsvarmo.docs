@@ -8,7 +8,7 @@
 - 0G Galileo Testnet added to your wallet, with chainId `16602`
 
 ::: tip Local demo mode
-The app can run locally without a wallet. Contract interactions are skipped, and the AXL client can use its in-memory implementation.
+The API can run with the in-memory AXL client when no AXL node URLs are configured. The browser flows still ask for a wallet when they need 0G Storage upload or simulated payment authorization.
 :::
 
 ## Install and run
@@ -41,9 +41,11 @@ Fill in production values as they become available. The local app includes devel
 
 | Variable | Fallback |
 |---|---|
-| `AXL_NODE_URLS` | In-memory AXL client |
-| `ZERO_G_RPC_URL` | Mock 0G client |
-| `NEXT_PUBLIC_CHAIN_ID` | `16602` (Galileo Testnet) |
+| `AXL_NODE_API_URL`, `AXL_NODE_PLANNER_URL`, `AXL_NODE_ANALYZER_URL`, `AXL_NODE_CRITIC_URL`, `AXL_NODE_REPORTER_URL` | In-memory AXL client when none are set |
+| `AXL_NODE_*_PEER_ID` | Required only for the HTTP AXL client |
+| `AXL_REQUEST_TIMEOUT_MS` | `5000` |
+| `NEXT_PUBLIC_API_URL` | `http://localhost:4000` |
+| `NEXT_PUBLIC_0G_INDEXER_RPC` | `https://indexer-storage-testnet-turbo.0g.ai` |
 
 ## Run checks
 

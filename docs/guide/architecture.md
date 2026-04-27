@@ -12,7 +12,7 @@ packages/
   axl-client/   Gensyn AXL HTTP and in-memory client
   zero-g/       0G Storage upload/download with AES-256-GCM
   keeperhub/    KeeperHub execution client interface
-  contracts/    ERC-7857 iNFT registry and AnalysisEscrow ABIs
+  contracts/    Contract deployment metadata package
 ```
 
 ## Frontend (`apps/web`)
@@ -42,9 +42,9 @@ Fastify 5 service running on port `4000`. It owns the job lifecycle: creates rec
 
 **`zero-g`** handles file operations against 0G Storage: AES-256-GCM encryption, Merkle tree generation, blob submission, and indexed retrieval by root hash.
 
-**`keeperhub`** defines the KeeperHub execution client interface for workflow scheduling, retry logic, and execution guarantees.
+**`keeperhub`** defines the KeeperHub execution client interface. The current API does not yet instantiate a KeeperHub adapter, so run IDs are placeholders in the UI until that integration is connected.
 
-**`contracts`** contains ABIs and TypeScript type definitions for the three on-chain contracts. Addresses are configured per environment via env vars.
+**`contracts`** currently contains deployment metadata types. The frontend keeps the contract ABI subsets and placeholder addresses in `apps/web/lib/contracts.ts` until the 0G Galileo deployment is ready.
 
 ## Data flow
 
@@ -52,7 +52,7 @@ Fastify 5 service running on port `4000`. It owns the job lifecycle: creates rec
 Browser -> POST /api/jobs           -> job record created (status: created)
 Browser -> POST /api/jobs/:id/start -> AXL: job.created       -> Planner
                                       AXL: plan.generated    -> Analyzer
-                                      AXL: analysis.complete -> Critic
+                                      AXL: analysis.completed -> Critic
                                       AXL: critic.reviewed   -> Reporter
                                       AXL: report.generated  -> API
 API     -> result stored (status: completed)

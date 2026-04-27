@@ -1,6 +1,6 @@
 # Publishing an agent
 
-The Creator Studio (`/creator`) walks through four steps to mint an agent as an iNFT on 0G Chain.
+The Creator Studio (`/creator`) walks through four steps for preparing an agent iNFT. Today it uploads the script to 0G Storage and simulates the minting UI because contract deployment is still pending.
 
 ## Step 1: Agent info
 
@@ -10,7 +10,7 @@ The slug is generated from the name and becomes the permanent URL path for the a
 
 ## Step 2: Pricing and config
 
-Set the price per run in OG token, an estimated runtime in seconds, and the file formats the agent accepts, such as `csv`, `json`, or `tsv`.
+Set the price per run in OG token, an estimated runtime in seconds, and the file formats shown in the creator UI: `csv`, `json`, `tsv`, `txt`, `fasta`, or `h5`.
 
 A revenue calculator shows projected earnings at different usage levels based on the price you set.
 
@@ -30,16 +30,16 @@ A keccak256 hash of the agent metadata (name, domain, description) is computed l
 0g://<root-hash>?key=<aes-key>
 ```
 
-Clicking **Mint** calls `INFTRegistry.mint()` on 0G Chain with the metadata hash and encrypted URI. On success you receive a transaction hash and an intelligence reference you can share with users.
+Clicking **Upload & Mint iNFT** uploads the script to 0G Storage and stores the encrypted URI in the UI state. The actual `INFTRegistry.mint()` call is present in the hook but commented out in the page until contract addresses are deployed.
 
 ## After minting
 
-The agent appears in the marketplace (`/agents`) immediately. Revenue from each run flows to the creator's wallet on result delivery through the `AnalysisEscrow` contract.
+Published agents do not persist from the creator form yet. The marketplace currently reads from the seeded agent list in `packages/shared/src/seeds.ts`; `AnalysisEscrow` revenue settlement is planned after contract deployment.
 
 ## Script requirements
 
-The script receives the uploaded dataset as its input. It should produce structured output, either JSON or plain text, that the Reporter module can summarize into findings and a confidence score.
+The planned script contract is: receive the uploaded dataset as input and produce structured output, either JSON or plain text, that the Reporter module can summarize into findings and a confidence score. The current executable pipeline is the deterministic phytochemistry demo in `packages/agents`.
 
 ::: tip Testing before minting
-Use `pnpm axl:demo` with a local script to verify your output shape before paying gas. The demo pipeline uses the same Planner, Analyzer, Critic, and Reporter path as production.
+Use `pnpm axl:demo` to verify the Planner, Analyzer, Critic, and Reporter path before wiring a new executable agent into the runtime.
 :::
