@@ -5,7 +5,7 @@ The local demo runs the same module path used by the API workflow: Planner, Anal
 ## Start the app
 
 ```bash
-git clone https://github.com/AriiBen/kinsvarmo
+git clone https://github.com/KinSvarmo/kinsvarmo
 cd kinsvarmo
 pnpm install
 pnpm dev
